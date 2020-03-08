@@ -4,7 +4,7 @@ import { TaxReturn, Form } from 'ustaxlib';
 
 import FormView from './FormView';
 
-import './App.css';
+const S = require('./App.css');
 
 interface AppProps {
   tr: TaxReturn;
@@ -28,11 +28,13 @@ export default function App(props: AppProps) {
   );
 
   return (
-    <>
-      <h1>Hello World</h1>
-      {formSelector}
+    <div class={S.container}>
+      <div class={S.header}>
+        <h1>ustaxlib Federal {props.tr.year}</h1>
+        {formSelector}
+      </div>
 
       <FormView tr={props.tr} form={state.form as Form<any>} />
-    </>
+    </div>
   );
 }

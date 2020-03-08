@@ -1,10 +1,22 @@
+.form-name {
+  margin: 0;
+  border: 3px solid black;
+  border-bottom-width: 2px;
+  padding: 5px;
+}
+
 .table {
   border: 1px solid black;
   border-collapse: collapse;
+  width: 100%;
 }
 
 .line {
   border: 1px solid black;
+}
+
+.line:hover {
+  background-color: #dfdfdf;
 }
 
 .id {
@@ -12,6 +24,7 @@
   color: white;
   font-weight: bold;
   padding: 0 5px;
+  text-align: center;
 }
 
 .description {

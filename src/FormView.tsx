@@ -14,7 +14,7 @@ export default function FormView(props: FormProps) {
 
   return (
     <>
-      <h1>Form {props.form.name}</h1>
+      <h2 class={S.formName}>Form {props.form.name}</h2>
 
       <table class={S.table}>
         <For each={lineKeys()}>
