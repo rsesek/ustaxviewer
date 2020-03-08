@@ -27,11 +27,18 @@ export default function FormView(props: FormProps) {
 
 function Line(props: { tr, line }) {
   const { tr, line } = props;
+  const value = createMemo(() => {
+    try {
+      return line.value(tr);
+    } catch (e) {
+      return <span class={S.error} title={e.stack}>{e.message}</span>;
+    }
+  });
   return (
     <tr class={S.line}>
       <th class={S.id}>{line.id}</th>
       <td class={S.description}>{line.description}</td>
-      <td class={S.value}>{line.value(tr)}</td>
+      <td class={S.value}>{value()}</td>
     </tr>
   );
 }
