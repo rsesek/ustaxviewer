@@ -1,0 +1,28 @@
+{
+  "name": "ustaxviewer",
+  "version": "0.1.0",
+  "description": "HTML form viewer for ustaxlib.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --port 8488 --inline --progress"
+  },
+  "author": "Robert Sesek",
+  "license": "ISC",
+  "dependencies": {
+    "solid-js": "^0.16.14",
+    "ustaxlib": "../ustaxlib"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "babel-loader": "^8.0.6",
+    "babel-preset-solid": "^0.16.8",
+    "css-loader": "^3.4.2",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^1.1.3",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
