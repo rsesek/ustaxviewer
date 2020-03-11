@@ -6,20 +6,3 @@ body {
   width: 750px;
   margin: 0 auto;
 }
-
-.header {
-  display: flex;
-  align-items: center;
-}
-
-.header h1 {
-  flex: 2;
-  font-size: 24pt;
-  margin: 10px 0;
-  color: #555;
-}
-
-.header select {
-  font-size: 14pt;
-  height: 24pt;
-}
