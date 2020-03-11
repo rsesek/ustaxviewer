@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "solid-js": "^0.16.14",
-    "ustaxlib": "../ustaxlib"
+    "ustaxlib": "../ustaxlib/dist"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",

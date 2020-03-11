@@ -1,6 +1,6 @@
 import { createMemo } from 'solid-js';
 import { For } from 'solid-js/dom';
-import { TaxReturn, Form } from 'ustaxlib';
+import { TaxReturn, Form } from 'ustaxlib/core';
 
 const S = require('./FormView.css');
 
