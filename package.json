@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --port 8488 --inline --progress"
   },
   "author": "Robert Sesek",
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "dependencies": {
     "solid-js": "^0.16.14",
     "ustaxlib": "../ustaxlib/dist"
