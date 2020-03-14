@@ -1,11 +1,11 @@
 import { render } from 'solid-js/dom';
-import { Form1040, FilingStatus, Schedule2, W2 } from 'ustaxlib/fed2019';
+import { Form1040, FilingStatus, Schedule2, TaxReturn, W2 } from 'ustaxlib/fed2019';
 
-import { TaxReturn, Person } from 'ustaxlib/core';
+import { Person } from 'ustaxlib/core';
 
 import App from './App';
 
-const tr = new TaxReturn(2019);
+const tr = new TaxReturn();
 tr.addForm(new Form1040({ filingStatus: FilingStatus.Single }));
 tr.addForm(new W2({
   employer: 'Employer',
