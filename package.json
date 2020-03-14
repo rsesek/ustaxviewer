@@ -2,27 +2,33 @@
   "name": "ustaxviewer",
   "version": "0.1.0",
   "description": "HTML form viewer for ustaxlib.",
-  "main": "index.js",
+  "main": "./dist/src/index.js",
   "scripts": {
-    "start": "webpack-dev-server --port 8488 --inline --progress"
+    "demo": "ts-node ./src/ustaxviewer.ts ./demos/fed2019.ts",
+    "build": "tsc; cp src/*.css dist/src"
+  },
+  "bin": {
+    "ustaxviewer": "./dist/src/ustaxviewer.js",
+    "ustaxviewer-ts": "./src/ustaxviewer.ts"
   },
   "author": "Robert Sesek",
   "license": "GPL-3.0-only",
   "dependencies": {
-    "solid-js": "^0.16.14",
-    "ustaxlib": "../ustaxlib/dist"
-  },
-  "devDependencies": {
     "@babel/core": "^7.8.7",
     "babel-loader": "^8.0.6",
     "babel-preset-solid": "^0.16.8",
     "css-loader": "^3.4.2",
     "html-webpack-plugin": "^3.2.0",
+    "solid-js": "^0.16.14",
     "style-loader": "^1.1.3",
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.8.3",
+    "ustaxlib": "../ustaxlib/dist",
     "webpack": "^4.42.0",
-    "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
+  },
+  "devDependencies": {
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3",
+    "webpack-cli": "^3.3.11"
   }
 }

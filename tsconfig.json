@@ -11,10 +11,13 @@
     "typeRoots": [
       "./node_modules/@types",
       "./node_modules/babel-plugin-jsx-dom-expressions"
-    ]
+    ],
+    "outDir": "dist/",
+    "declaration": true
   },
   "include": [
-    "src"
+    "src",
+    "demos"
   ],
   "exclude": [
     "node_modules/",
