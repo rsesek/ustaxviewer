@@ -3,9 +3,10 @@
 // version 3.0. The full text of the license can be found in LICENSE.txt.
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { createMemo } from 'solid-js';
-import { For } from 'solid-js/dom';
-import { TaxReturn, Form } from 'ustaxlib/core';
+import { createDependentEffect, createMemo, createState } from 'solid-js';
+import { For, Show } from 'solid-js/dom';
+import { TaxReturn, Form, Line } from 'ustaxlib/core';
+import { getLastTraceList } from 'ustaxlib/core/Trace';
 
 const S = require('./FormView.css');
 
@@ -27,14 +28,19 @@ export default function FormView(props: FormProps) {
 
       <table class={S.table}>
         <For each={lines()}>
-          {line => <Line tr={props.tr} line={line} />}
+          {line => <LineView tr={props.tr} line={line} />}
         </For>
       </table>
     </>
   );
 }
 
-function Line(props: { tr, line }) {
+interface LineProps {
+  tr: TaxReturn;
+  line: Line<any>;
+}
+
+function LineView(props: LineProps) {
   const { tr, line } = props;
   const value = createMemo(() => {
     try {
@@ -43,11 +49,41 @@ function Line(props: { tr, line }) {
       return <span class={S.error} title={e.stack}>{e.message}</span>;
     }
   });
+
+  const [ state, setState ] = createState({
+    trace: "",
+    showTrace: false
+  });
+
+  createDependentEffect(() => setState('trace', JSON.stringify(getLastTraceList(), null, '  ')), [value]);
+
+  const toggleTrace = () => setState('showTrace', !state.showTrace);
+
   return (
     <tr class={S.line}>
-      <th class={S.id}>{line.id}</th>
-      <td class={S.description}>{line.description}</td>
+      <th class={S.id} onclick={toggleTrace}>{line.id}</th>
+      <td class={S.description}>
+        {line.description}
+
+        <Show when={state.showTrace}>
+          <TraceViewer line={line} trace={state.trace} />
+        </Show>
+      </td>
       <td class={S.value}>{value()}</td>
     </tr>
+  );
+}
+
+interface TraceProps {
+  line: Line<any>;
+  trace: string;
+}
+
+function TraceViewer(props: TraceProps) {
+  return (
+    <div class={S.traceViewer}>
+      <h2>Trace {props.line.id}</h2>
+      <div class={S.trace}>{props.trace}</div>
+    </div>
   );
 }

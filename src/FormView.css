@@ -47,3 +47,22 @@
   color: red;
   font-weight: bold;
 }
+
+.trace-viewer {
+  background-color: #fffdf1;
+  padding: 10px;
+}
+
+.trace-viewer h2 {
+  margin: 0;
+  font-size: 14pt;
+}
+
+.trace {
+  font-family: monospace;
+  white-space: pre;
+  max-height: 400px;
+  overflow: scroll;
+  border: 1px solid #444;
+  padding: 4px;
+}
