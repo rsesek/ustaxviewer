@@ -15,15 +15,15 @@ interface FormProps {
 }
 
 export default function FormView(props: FormProps) {
-  const lineKeys = createMemo(() => Object.keys(props.form.lines));
+  const lines = createMemo(() => Object.values(props.form.lines));
 
   return (
     <>
       <h2 class={S.formName}>Form {props.form.name}</h2>
 
       <table class={S.table}>
-        <For each={lineKeys()}>
-          {key => <Line tr={props.tr} line={props.form.lines[key]} />}
+        <For each={lines()}>
+          {line => <Line tr={props.tr} line={line} />}
         </For>
       </table>
     </>
