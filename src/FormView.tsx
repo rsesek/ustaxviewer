@@ -15,7 +15,11 @@ interface FormProps {
 }
 
 export default function FormView(props: FormProps) {
-  const lines = createMemo(() => Object.values(props.form.lines));
+  const lines = createMemo(() => {
+    const keys = Object.keys(props.form.lines);
+    keys.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    return keys.map(k => props.form.lines[k]);
+  });
 
   return (
     <>
