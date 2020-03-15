@@ -38,7 +38,7 @@ function Line(props: { tr, line }) {
   const { tr, line } = props;
   const value = createMemo(() => {
     try {
-      return JSON.stringify(line.value(tr));
+      return JSON.stringify(line.value(tr), null, 1);
     } catch (e) {
       return <span class={S.error} title={e.stack}>{e.message}</span>;
     }
