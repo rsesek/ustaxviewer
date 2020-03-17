@@ -5,7 +5,7 @@
 
 import { createMemo, createState } from 'solid-js';
 import { For } from 'solid-js/dom';
-import { Form, TaxReturn } from 'ustaxlib/core';
+import { Form, Person, TaxReturn } from 'ustaxlib/core';
 
 import FormView from './FormView';
 
@@ -22,7 +22,15 @@ export default function TaxReturnView(props: Props) {
     setState({ form: props.tr.forms[e.target.value] });
   };
 
-  const formIndexToName = createMemo(() => props.tr.forms.map((form, i) => [i, form.name]));
+  const formIndexToName = createMemo(() => props.tr.forms.map((form, i) => {
+    let name = form.name;
+    const person = form.person();
+    if (person !== undefined) {
+      const personName = person === Person.joint ? 'Joint' : person.name;
+      name += ` (${personName})`;
+    }
+    return [i, name];
+  }));
 
   const formSelector = (
     <select onchange={changeForm}>
