@@ -71,7 +71,7 @@ function LineView(props: LineProps) {
         <div class={S.value}>{value()}</div>
       </div>
       <Show when={state.showTrace}>
-        <TraceViewer line={line} trace={state.trace} />
+        <TraceViewer line={line} trace={state.trace} onClose={() => setState('showTrace', false)} />
       </Show>
     </>
   );
@@ -80,6 +80,8 @@ function LineView(props: LineProps) {
 interface TraceProps {
   line: Line<any>;
   trace: readonly Edge[];
+
+  onClose: () => void;
 }
 
 function TraceViewer(props: TraceProps) {
@@ -89,11 +91,16 @@ function TraceViewer(props: TraceProps) {
       graph += `"${edge[1]}" -> "${edge[0]}"; `;
     }
     graphviz(ref)
-      .renderDot(`digraph { ${graph} }`);
+      .zoomScaleExtent([0.1, 1])
+      .renderDot(`digraph { ${graph} }`, () => {
+        if (ref.querySelector('svg').clientWidth > ref.parentNode.clientWidth) {
+          ref.parentNode.classList.add(S.large);
+        }
+      });
   };
   return (
     <div class={S.traceViewer}>
-      <h2>Trace {props.line.id}</h2>
+      <h2>Trace {props.line.id}  <button class={S.close} onclick={props.onClose}>\u24E7</button></h2>
       <div forwardRef={renderGraph}></div>
     </div>
   );

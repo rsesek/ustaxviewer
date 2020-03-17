@@ -73,6 +73,9 @@
   background-color: #fffdf1;
   padding: 10px;
   border: 1px solid red;
+  box-sizing: border-box;
+  width: var(--form-width);
+  margin: 0 auto;
 }
 
 .trace-viewer h2 {
@@ -87,4 +90,8 @@
   overflow: scroll;
   border: 1px solid #444;
   padding: 4px;
+}
+
+.large {
+  width: auto;
 }
