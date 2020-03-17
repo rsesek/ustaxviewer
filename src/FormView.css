@@ -4,21 +4,39 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
+:root {
+  --form-width: 750px;
+}
+
+.form {
+}
+
 .form-name {
-  margin: 0;
+  width: var(--form-width);
+  margin: 0 auto;
+
   border: 3px solid black;
   border-bottom-width: 2px;
+  box-sizing: border-box;
   padding: 5px;
 }
 
 .table {
-  border: 1px solid black;
-  border-collapse: collapse;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .line {
+  width: var(--form-width);
+  margin: 0 auto;
+
   border: 1px solid black;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .line:hover {
@@ -31,10 +49,13 @@
   font-weight: bold;
   padding: 0 5px;
   text-align: center;
+  width: 10%;
+  padding: 3px 0;
 }
 
 .description {
   padding: 3px 10px 3px 3px;
+  flex: 2;
 }
 
 .value {
@@ -51,6 +72,7 @@
 .trace-viewer {
   background-color: #fffdf1;
   padding: 10px;
+  border: 1px solid red;
 }
 
 .trace-viewer h2 {

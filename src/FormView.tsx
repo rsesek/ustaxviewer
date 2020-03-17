@@ -24,15 +24,15 @@ export default function FormView(props: FormProps) {
   });
 
   return (
-    <>
+    <div class={S.form}>
       <h2 class={S.formName}>Form {props.form.name}</h2>
 
-      <table class={S.table}>
+      <div class={S.table}>
         <For each={lines()}>
           {line => <LineView tr={props.tr} line={line} />}
         </For>
-      </table>
-    </>
+      </div>
+    </div>
   );
 }
 
@@ -61,17 +61,19 @@ function LineView(props: LineProps) {
   const toggleTrace = () => setState('showTrace', !state.showTrace);
 
   return (
-    <tr class={S.line}>
-      <th class={S.id} onclick={toggleTrace}>{line.id}</th>
-      <td class={S.description}>
-        {line.description}
+    <>
+      <div class={S.line}>
+        <div class={S.id} onclick={toggleTrace}>{line.id}</div>
+        <div class={S.description}>
+          {line.description}
 
-        <Show when={state.showTrace}>
-          <TraceViewer line={line} trace={state.trace} />
-        </Show>
-      </td>
-      <td class={S.value}>{value()}</td>
-    </tr>
+        </div>
+        <div class={S.value}>{value()}</div>
+      </div>
+      <Show when={state.showTrace}>
+        <TraceViewer line={line} trace={state.trace} />
+      </Show>
+    </>
   );
 }
 

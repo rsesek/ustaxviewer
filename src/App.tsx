@@ -14,5 +14,5 @@ interface Props {
 }
 
 export default function App(props: Props) {
-  return (<div class={S.container}><TaxReturnView {...props} /></div>);
+  return (<div><TaxReturnView {...props} /></div>);
 }
