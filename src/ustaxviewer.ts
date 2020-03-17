@@ -82,7 +82,7 @@ const compiler = webpack({
   devServer: {
     contentBase: PUBLIC,
     port: 8488
- },
+  },
 
   devtool: 'cheap-module-eval-source-map',
 
@@ -97,7 +97,7 @@ const compiler = webpack({
   ]
 });
 
-const server = new WebpackDevServer(compiler);
+const server = new WebpackDevServer(compiler, compiler.options.devServer);
 
 server.listen(8488, 'localhost', () => {
   console.log(`ustaxviewer for ${TAX_RETURN_PATH} at http://localhost:8488`);

@@ -6,7 +6,8 @@
 import { createDependentEffect, createMemo, createState } from 'solid-js';
 import { For, Show } from 'solid-js/dom';
 import { TaxReturn, Form, Line } from 'ustaxlib/core';
-import { getLastTraceList } from 'ustaxlib/core/Trace';
+import { Edge, getLastTraceList } from 'ustaxlib/core/Trace';
+import { graphviz } from 'd3-graphviz';
 
 const S = require('./FormView.css');
 
@@ -51,11 +52,11 @@ function LineView(props: LineProps) {
   });
 
   const [ state, setState ] = createState({
-    trace: "",
+    trace: [] as readonly Edge[],
     showTrace: false
   });
 
-  createDependentEffect(() => setState('trace', JSON.stringify(getLastTraceList(), null, '  ')), [value]);
+  createDependentEffect(() => setState('trace', getLastTraceList()), [value]);
 
   const toggleTrace = () => setState('showTrace', !state.showTrace);
 
@@ -76,14 +77,22 @@ function LineView(props: LineProps) {
 
 interface TraceProps {
   line: Line<any>;
-  trace: string;
+  trace: readonly Edge[];
 }
 
 function TraceViewer(props: TraceProps) {
+  const renderGraph = (ref) => {
+    let graph = '';
+    for (const edge of props.trace) {
+      graph += `"${edge[1]}" -> "${edge[0]}"; `;
+    }
+    graphviz(ref)
+      .renderDot(`digraph { ${graph} }`);
+  };
   return (
     <div class={S.traceViewer}>
       <h2>Trace {props.line.id}</h2>
-      <div class={S.trace}>{props.trace}</div>
+      <div forwardRef={renderGraph}></div>
     </div>
   );
 }
