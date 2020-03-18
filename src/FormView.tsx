@@ -3,10 +3,11 @@
 // version 3.0. The full text of the license can be found in LICENSE.txt.
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { createDependentEffect, createMemo, createState } from 'solid-js';
+import { createEffect, createMemo, createState } from 'solid-js';
 import { For, Show } from 'solid-js/dom';
 import { TaxReturn, Form, Line } from 'ustaxlib/core';
-import { Edge, getLastTraceList } from 'ustaxlib/core/Trace';
+import * as Trace from 'ustaxlib/core/Trace';
+import { Edge } from 'ustaxlib/core/Trace';
 import { graphviz } from 'd3-graphviz';
 
 const S = require('./FormView.css');
@@ -43,20 +44,36 @@ interface LineProps {
 
 function LineView(props: LineProps) {
   const { tr, line } = props;
-  const value = createMemo(() => {
-    try {
-      return JSON.stringify(line.value(tr), null, 1);
-    } catch (e) {
-      return <span class={S.error} title={e.stack}>{e.message}</span>;
-    }
-  });
 
   const [ state, setState ] = createState({
+    value: undefined as any,
+    error: undefined as any,
     trace: [] as readonly Edge[],
     showTrace: false
   });
 
-  createDependentEffect(() => setState('trace', getLastTraceList()), [value]);
+  createEffect(() => {
+    const newState = {
+      value: undefined,
+      error: undefined,
+      trace: [] as readonly Edge[]
+    };
+    try {
+      Trace.reset();
+      newState.value = line.value(tr);
+    } catch (e) {
+      newState.error = e;
+    }
+    newState.trace = Trace.getLastTraceList();
+    setState(newState);
+  });
+
+  const valueDisplay = createMemo(() => {
+    if (state.error) {
+      return <span class={S.error} title={state.error.stack}>{state.error.message}</span>;
+    }
+    return JSON.stringify(state.value, null, 1);
+  });
 
   const toggleTrace = () => setState('showTrace', !state.showTrace);
 
@@ -68,7 +85,7 @@ function LineView(props: LineProps) {
           {line.description}
 
         </div>
-        <div class={S.value}>{value()}</div>
+        <div class={S.value}>{valueDisplay()}</div>
       </div>
       <Show when={state.showTrace}>
         <TraceViewer line={line} trace={state.trace} onClose={() => setState('showTrace', false)} />
