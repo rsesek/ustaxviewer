@@ -1,6 +1,6 @@
 {
   "name": "ustaxviewer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "HTML form viewer for ustaxlib.",
   "repository": "https://github.com/rsesek/ustaxviewer",
   "main": "./dist/src/index.js",
