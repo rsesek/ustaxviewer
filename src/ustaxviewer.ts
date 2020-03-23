@@ -50,7 +50,7 @@ const compiler = webpack({
     rules: [
       {
         test: /\.tsx?$/,
-        exclude: /node_modules/,
+        include: DISTROOT,
         use: [
           babelLoader,
           'ts-loader'
@@ -58,7 +58,6 @@ const compiler = webpack({
       },
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
         use: [ babelLoader ]
       },
       {
