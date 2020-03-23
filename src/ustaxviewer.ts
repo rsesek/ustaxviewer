@@ -79,7 +79,10 @@ const compiler = webpack({
   },
 
   devServer: {
-    contentBase: PUBLIC,
+    contentBase: [
+      PUBLIC,
+      path.dirname(require.resolve('@hpcc-js/wasm')),
+    ],
     port: 8488
   },
 
