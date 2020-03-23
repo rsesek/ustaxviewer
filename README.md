@@ -15,7 +15,7 @@ the "Amount You Owe", for example, which [yields this massive graph](doc/f1040-a
 
 See the [ustaxlib] repository for how to get started modeling taxes. To run the viewer, simply do:
 
-    npx ustaxviewer-ts taxfile.ts
+    npx ustaxviewer taxfile.ts
 
 Note that `taxfile.ts` should have a default export of the TaxReturn object to be rendered.
 

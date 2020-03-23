@@ -78,6 +78,22 @@ const compiler = webpack({
     ]
   },
 
+  output: {
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
+  },
+
+  optimization: {
+    minimize: false,
+    splitChunks: {
+      chunks: 'all',
+    }
+  },
+
+  performance: {
+    hints: isTypescript
+  },
+
   devServer: {
     contentBase: [
       PUBLIC,

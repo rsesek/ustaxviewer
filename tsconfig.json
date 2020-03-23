@@ -20,7 +20,7 @@
     "demos"
   ],
   "exclude": [
-    "node_modules/",
-    "../ustaxlib"
+    "./node_modules/",
+    "./dist/"
   ]
 }
