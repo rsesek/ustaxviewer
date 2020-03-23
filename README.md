@@ -1,6 +1,6 @@
 # ustaxviewer
 
-This package provides an HTML frontend to the [ustaxlib]() system.
+This package provides an HTML frontend to the [ustaxlib] system.
 
 Every Form object that is added to the TaxReturn is viewable, with the value of every line
 displayed:
@@ -13,8 +13,10 @@ the "Amount You Owe", for example, which [yields this massive graph](doc/f1040-a
 
 # Usage
 
-See the [ustaxlib]() repository for how to get started modeling taxes. To run the viewer, simply do:
+See the [ustaxlib] repository for how to get started modeling taxes. To run the viewer, simply do:
 
     npx ustaxviewer-ts taxfile.ts
 
 Note that `taxfile.ts` should have a default export of the TaxReturn object to be rendered.
+
+[ustaxlib]: https://github.com/rsesek/ustaxlib
