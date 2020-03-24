@@ -91,7 +91,7 @@ const compiler = webpack({
   },
 
   performance: {
-    hints: isTypescript
+    hints: isTypescript ? 'warning' : false
   },
 
   devServer: {
