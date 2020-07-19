@@ -99,6 +99,7 @@ const compiler = webpack({
       PUBLIC,
       path.dirname(require.resolve('@hpcc-js/wasm')),
     ],
+    liveReload: false,
     port: 8488
   },
 
