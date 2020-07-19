@@ -22,15 +22,25 @@ export default function TaxReturnView(props: Props) {
     setState({ form: props.tr.forms[e.target.value] });
   };
 
-  const formIndexToName = createMemo(() => props.tr.forms.map((form, i) => {
-    let name = form.name;
-    const person = form.person();
-    if (person !== undefined) {
-      const personName = person === Person.joint ? 'Joint' : person.name;
-      name += ` (${personName})`;
-    }
-    return [i, name];
-  }));
+  const formIndexToName = createMemo(() => {
+    let forms = props.tr.forms.map((form, i) => {
+      let name = form.name;
+      const person = form.person();
+      if (person !== undefined) {
+        const personName = person === Person.joint ? 'Joint' : person.name;
+        name += ` (${personName})`;
+      }
+      return [i, name];
+    });
+    forms.sort((a, b) => {
+      if (a[1] < b[1])
+        return -1;
+      if (a[1] > b[1])
+        return 1;
+      return 0;
+    });
+    return forms;
+  });
 
   const formSelector = (
     <select onchange={changeForm}>
