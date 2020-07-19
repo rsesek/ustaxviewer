@@ -30,9 +30,9 @@
     "typescript": "^3.8.3",
     "ustaxlib": "^1.0.0",
     "webpack": "^4.42.0",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.12"
   }
 }
