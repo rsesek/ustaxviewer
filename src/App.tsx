@@ -11,6 +11,8 @@ const S = require('./App.css');
 
 interface Props {
   tr: TaxReturn;
+  showForm?: string
+  onFormChange?: (formName: string) => void;
 }
 
 export default function App(props: Props) {

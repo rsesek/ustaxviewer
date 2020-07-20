@@ -3,7 +3,7 @@
 // version 3.0. The full text of the license can be found in LICENSE.txt.
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { createMemo, createState } from 'solid-js';
+import { createEffect, createMemo, createState } from 'solid-js';
 import { For } from 'solid-js/dom';
 import { Form, Person, TaxReturn } from 'ustaxlib/core';
 
@@ -13,6 +13,12 @@ const S = require('./TaxReturnView.css');
 
 interface Props {
   tr: TaxReturn;
+  showForm?: string;
+  onFormChange?: (formName: string) => void;
+}
+
+function hashifyFormName(name: string): string {
+  return '#' + name.replace(/[^\w]+/g, '_');
 }
 
 export default function TaxReturnView(props: Props) {
@@ -20,6 +26,8 @@ export default function TaxReturnView(props: Props) {
 
   const changeForm = e => {
     setState({ form: props.tr.forms[e.target.value] });
+    if (props.onFormChange)
+      props.onFormChange(hashifyFormName(e.target.selectedOptions[0].textContent));
   };
 
   const formIndexToName = createMemo(() => {
@@ -42,10 +50,20 @@ export default function TaxReturnView(props: Props) {
     return forms;
   });
 
+  createEffect(() => {
+    if (props.showForm) {
+      for (let f of formIndexToName()) {
+        if (hashifyFormName(f[1] as string) === props.showForm) {
+          setState({ form: props.tr.forms[f[0]] });
+        }
+      }
+    }
+  });
+
   const formSelector = (
     <select onchange={changeForm}>
       <For each={formIndexToName()}>
-        {tuple => (<option value={tuple[0]}>{tuple[1]}</option>)}
+        {tuple => (<option value={tuple[0]} selected={state.form === props.tr.forms[tuple[0]]}>{tuple[1]}</option>)}
       </For>
     </select>
   );
