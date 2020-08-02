@@ -5,15 +5,9 @@
 
 import { TaxReturn } from 'ustaxlib/core';
 
-import TaxReturnView from './TaxReturnView';
+import TaxReturnView, { Props } from './TaxReturnView';
 
 const S = require('./App.css');
-
-interface Props {
-  tr: TaxReturn;
-  showForm?: string
-  onFormChange?: (formName: string) => void;
-}
 
 export default function App(props: Props) {
   return (<div><TaxReturnView {...props} /></div>);

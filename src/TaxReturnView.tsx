@@ -11,7 +11,7 @@ import FormView from './FormView';
 
 const S = require('./TaxReturnView.css');
 
-interface Props {
+export interface Props {
   tr: TaxReturn;
   showForm?: string;
   onFormChange?: (formName: string) => void;
