@@ -103,7 +103,7 @@ const compiler = webpack({
     port: 8488
   },
 
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval-cheap-module-source-map',
 
   plugins: [
     new (require('html-webpack-plugin'))({

@@ -56,7 +56,7 @@ module.exports = {
     contentBase: 'public/'
   },
 
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval-cheap-module-source-map',
 
   plugins: [
     new (require('html-webpack-plugin'))({
