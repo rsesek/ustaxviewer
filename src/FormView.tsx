@@ -5,7 +5,7 @@
 
 import { createEffect, createMemo, createState } from 'solid-js';
 import { For, Show } from 'solid-js/dom';
-import { TaxReturn, Form, Line } from 'ustaxlib/core';
+import { TaxReturn, Form, Line, FormatType } from 'ustaxlib/core';
 import * as Trace from 'ustaxlib/core/Trace';
 import { Edge } from 'ustaxlib/core/Trace';
 import { graphviz } from 'd3-graphviz';
@@ -42,6 +42,56 @@ interface LineProps {
   line: Line<any>;
 }
 
+class Formatter {
+  private static _instance: Formatter;
+
+  private _dollar = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', 'currencySign': 'accounting' } as Intl.NumberFormatOptions);
+  private _percent = new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 3 });
+  private _decimal = new Intl.NumberFormat('en-US', { style: 'decimal', minimumFractionDigits: 5 });
+
+  private constructor() {}
+
+  static getInstance() {
+    if (!Formatter._instance) {
+      Formatter._instance = new Formatter();
+    }
+    return Formatter._instance;
+  }
+
+  dollar(value: number): string {
+    return this._dollar.format(value);
+  }
+
+  percent(value: number): string {
+    return this._percent.format(value);
+  }
+
+  decimal(value: number): string {
+    return this._decimal.format(value);
+  }
+
+  string(value: any): string {
+    return JSON.stringify(value, null, 1);
+  }
+}
+
+function formatLine(value: any, line: Line<any>): string {
+  const formatter = Formatter.getInstance();
+  const formatType = line.options.formatType;
+
+  if (typeof(value) === 'number') {
+    if (formatType == FormatType.Decimal) {
+      return formatter.decimal(value);
+    } else if (formatType == FormatType.Percent) {
+      return formatter.percent(value);
+    } else if (formatType == FormatType.Dollar || formatType == undefined) {
+      return formatter.dollar(value);
+    }
+  }
+
+  return formatter.string(value);
+}
+
 function LineView(props: LineProps) {
   const { tr, line } = props;
 
@@ -72,7 +122,7 @@ function LineView(props: LineProps) {
     if (state.error) {
       return <span class={S.error} title={state.error.stack}>{state.error.message}</span>;
     }
-    return JSON.stringify(state.value, null, 1);
+    return formatLine(state.value, line);
   });
 
   const toggleTrace = () => setState('showTrace', !state.showTrace);
