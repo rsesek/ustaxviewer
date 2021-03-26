@@ -28,7 +28,7 @@
     "ts-loader": "^6.2.2",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.3",
-    "ustaxlib": "^1.0.0",
+    "ustaxlib": "^2.0.0",
     "webpack": "^4.42.0",
     "webpack-dev-server": "^3.11.0"
   },
