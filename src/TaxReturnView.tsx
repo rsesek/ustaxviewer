@@ -31,12 +31,19 @@ export default function TaxReturnView(props: Props) {
   };
 
   const formIndexToName = createMemo(() => {
+    const formNameCounts = {};
     let forms = props.tr.forms.map((form, i) => {
       let name = form.name;
       const person = form.person();
       if (person !== undefined) {
         const personName = person === Person.joint ? 'Joint' : person.name;
         name += ` (${personName})`;
+      }
+      if (name in formNameCounts) {
+        formNameCounts[name] += 1;
+        name += ` (${formNameCounts[name]})`;
+      } else {
+        formNameCounts[name] = 1;
       }
       return [i, name];
     });
